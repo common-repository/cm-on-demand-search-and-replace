@@ -1,3 +1,4 @@
+
 (function ($) {
 
     $(document).ready(function () {
@@ -11,8 +12,6 @@
 
         $(document).on('click', '#cmodsar-custom-add-replacement-btn', function () {
             var data, replace_from, replace_to, replace_case, replace_regex, replace_pause, replace_title, replace_content, replace_excerpt, replace_comments, replace_time_from, replace_time_to, valid = true;
-			
-			form_nonce = $('.cmodsar-custom-replacement-add').closest('form').find("#_wpnonce");
 
             replace_from = $('.cmodsar-custom-replacement-add textarea[name="cmodsar_custom_from_new"]');
             replace_to = $('.cmodsar-custom-replacement-add textarea[name="cmodsar_custom_to_new"]');
@@ -28,13 +27,6 @@
 
             replace_time_from = $('.cmodsar-custom-replacement-add input[name*="custom_time_from"]:enabled');
             replace_time_to = $('.cmodsar-custom-replacement-add input[name*="custom_time_to"]:enabled');
-			
-			if (form_nonce.val() === '') {
-                replace_from.addClass('invalid');
-                valid = false;
-            } else {
-				replace_from.removeClass('invalid');
-			}
 
             if (replace_from.val() === '') {
                 replace_from.addClass('invalid');
@@ -44,14 +36,12 @@
                 replace_from.removeClass('invalid');
             }
 
-            /*
-			if (replace_to.val() === '') {
+            if (replace_to.val() === '') {
                 replace_to.addClass('invalid');
                 valid = false;
             } else {
                 replace_to.removeClass('invalid');
             }
-			*/
 
             if (!valid) {
                 return false;
@@ -59,7 +49,6 @@
 
             data = {
                 action: 'cmodsar_add_replacement',
-                nonce: form_nonce.val(),
                 replace_from: replace_from.val(),
                 replace_to: replace_to.val(),
                 replace_case: replace_case.is(':checked') ? 1 : 0,
@@ -143,13 +132,9 @@
         $('div.cmodsar_place_disable_wrapper input[type="checkbox"]').trigger('cmodsar_checkCounts');
 
         $(document).on('click', '.cmodsar-custom-delete-replacement', function () {
-			
-			form_nonce = $('.cmodsar_replacements_list').closest('form').find("#_wpnonce");
-
             if (window.window.confirm('Do you really want to delete this replacement?')) {
                 var data = {
                     action: 'cmodsar_delete_replacement',
-					nonce: form_nonce.val(),
                     id: $(this).data('rid')
                 };
                 $('.custom_loading').fadeIn('fast');
@@ -169,9 +154,6 @@
                 var data, id, replace_from, replace_to, replace_case, replace_regex, replace_pause, replace_title, replace_content, replace_excerpt, replace_comments, replace_time_from, replace_time_to, valid = true;
 
                 id = $(this).data('uid');
-
-				form_nonce = $('.cmodsar_replacements_list').closest('form').find("#_wpnonce");
-
                 replace_from = $('.cmodsar_replacements_list textarea[name="cmodsar_custom_from[' + id + ']"]');
                 replace_to = $('.cmodsar_replacements_list textarea[name="cmodsar_custom_to[' + id + ']"]');
                 replace_case = $('.cmodsar_replacements_list input[name="cmodsar_custom_case[' + id + ']"]');
@@ -186,13 +168,6 @@
 
                 replace_time_from = $('.cmodsar_replacements_list input[name*="custom_time_from[' + id + ']"]:enabled');
                 replace_time_to = $('.cmodsar_replacements_list input[name*="custom_time_to[' + id + ']"]:enabled');
-				
-				if (form_nonce.val() === '') {
-					replace_from.addClass('invalid');
-					valid = false;
-				} else {
-					replace_from.removeClass('invalid');
-				}
 
                 if (replace_from.val() === '') {
                     replace_from.addClass('invalid');
@@ -202,14 +177,12 @@
                     replace_from.removeClass('invalid');
                 }
 
-                /*
-				if (replace_to.val() === '') {
+                if (replace_to.val() === '') {
                     replace_to.addClass('invalid');
                     valid = false;
                 } else {
                     replace_to.removeClass('invalid');
                 }
-				*/
 
                 if (!valid) {
                     return false;
@@ -217,7 +190,6 @@
 
                 data = {
                     action: 'cmodsar_update_replacement',
-					nonce: form_nonce.val(),
                     replace_id: $(this).data('uid'),
                     replace_from: replace_from.val(),
                     replace_to: replace_to.val(),
